@@ -7,20 +7,41 @@
   <body>
     <script>
 
-      $(document).ready(function(){
-        var $body = $('body');
-        $body.html('');
-
-        var index = streams.home.length - 1;
-        while(index >= 0){
-          var tweet = streams.home[index];
-          var $tweet = $('<div></div>');
-          $tweet.text('@' + tweet.user + ': ' + tweet.message);
-          $tweet.appendTo($body);
-          index -= 1;
+      var $body = $('body');
+      $body.html('');
+      var index;
+      var retainIndex;
+      var timeBetweenTweets;
+      var individual = false;
+      var initialTweets = function() {
+        index = streams.home.length-1;
+        retainIndex = index;
+        for ( var x = 0; x < index; x++){
+          currentTweets(x);
         }
+      }
 
-      });
+      var currentTweets = function(x) {
+        var tweet = streams.home[x];
+        var $tweet = $("<div class='div-" + tweet.user + "'></div>");
+        $tweet.html("<strong class='" + tweet.user + "'>@" + tweet.user + '</strong>: ' + tweet.message + '<br />' + tweet.created_at);
+        $tweet.appendTo($body);
+      }
+
+      var newTweets = function() {
+        timeBetweenTweets = setInterval(function() {
+          for (var x = retainIndex + 1; x < streams.home.length - 1; x++) {
+            currentTweets(x);
+            retainIndex = x;
+          }
+        }, 1000);
+      }
+
+      $(document).ready(function(){
+        initialTweets();
+        newTweets();
+
+      })
 
     </script>
   </body>
