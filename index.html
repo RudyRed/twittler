@@ -12,7 +12,7 @@
       var index;
       var retainIndex;
       var timeBetweenTweets;
-      var individual = false;
+      var oneUserOnly = false;
       var initialTweets = function() {
         index = streams.home.length-1;
         retainIndex = index;
@@ -36,12 +36,36 @@
           }
         }, 1000);
       }
+      var timeline = function(person1, person2, person3) {
+        if (oneUserOnly == false) {
+          $(person1).remove();
+          $(person2).remove();
+          $(person3).remove();
+          clearInterval(timeBetweenTweets);
+          var $button = $("<div class='back'></div>");
+          $button.html("Back To All Users");
+          $button.appendTo($body);
+          oneUserOnly = true;
+        }
+      }
 
       $(document).ready(function(){
         initialTweets();
         newTweets();
-
-      })
+      }).on('click', ".douglascalhoun", function() {
+        timeline(".div-mracus", ".div-shawndrost", ".div-sharksforcheap");
+      }).on('click', ".sharksforcheap", function() {
+        timeline(".div-douglascalhoun", ".div-shawndrost", ".div-mracus");
+      }).on('click', ".mracus", function() {
+        timeline(".div-sharksforcheap", ".div-douglascalhoun", ".div-shawndrost");
+      }).on('click', ".shawndrost", function() {
+        timeline( ".div-mracus",".div-sharksforcheap", ".div-douglascalhoun");
+      }).on('click', ".back", function() {
+        $("div").remove();
+        oneUserOnly = false;
+        initialTweets();
+        newTweets();
+      });
 
     </script>
   </body>
