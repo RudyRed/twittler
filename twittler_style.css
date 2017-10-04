@@ -1,0 +1,20 @@
+body {
+  background-color: #26afef;
+  margin: 10px;
+  padding: 0px;
+  text-align: center;
+  font-family: Comic Sans MS, cursive, sans-serif;
+}
+
+div {
+  background-color: #ffffff;
+  margin: 0px;
+  padding: 0px;
+  border-style: solid;
+  border-right-width: 3px;
+  border-bottom-width: 1.5px;
+  border-top-width: 1.5px;
+  border-left-width: 3px;
+  width: 400px;
+  margin-left: 25%;
+}
